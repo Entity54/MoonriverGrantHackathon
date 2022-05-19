@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {Dropdown} from 'react-bootstrap';
-import {setup, setup_SubstrateChain, wallet, transferFromRelayToParachain, tranferFromRelayToRelay, simpleERC20Transfer, getBalance, transfer_xcKSMtoKSM } from './Setup.js';
+import {setup, setup_SubstrateChain, wallet, transferFromRelayToParachain, tranferFromRelayToRelay, simpleERC20Transfer, getBalance, transfer_xcKSMtoKSM, transfer_Currency_FromParachainToParachain, transfer_Asset_FromParachainToParachain } from './Setup.js';
 
  
-const QuickTransfer = ({setupSpecs, relaySpecs, portfolio, icons, tickSymbols, blockHeader, customerPortfolio}) => {
+const QuickTransfer = ({setupSpecs, relaySpecs, karuraAlphaSpecs, portfolio, icons, tickSymbols, blockHeader, customerPortfolio}) => {
      
 	const parachainCode = 1000;
 	const tokenList = ["KSM","xcKSM","MOVR","xcKAR","xcKINT","xcRMRK"];
@@ -39,7 +39,15 @@ const QuickTransfer = ({setupSpecs, relaySpecs, portfolio, icons, tickSymbols, b
 					setTransfer_IsSubmiting(true);
 					setTransactionMessage(`Transfer KSM from Kusama account to Moonriver account for xcKSM, submitted at BlockNumber: ${blockHeader.number}`);
 
-					await transferFromRelayToParachain(relaySpecs.api, parachainCode, sendToAddress, amount)
+					// await transferFromRelayToParachain(relaySpecs.api, parachainCode, sendToAddress, amount);
+
+					// console.log(`We are sendinf KAR to xcKAR`);
+					// await transfer_Currency_FromParachainToParachain(karuraAlphaSpecs.api, parachainCode, sendToAddress, amount);
+					
+					console.log(`We are sendinf AUSD to xcAUSD`);
+					await transfer_Asset_FromParachainToParachain(karuraAlphaSpecs.api, "KUSD", 2000, parachainCode, sendToAddress, amount);
+					// const transfer_Asset_FromParachainToParachain = async (api, _token="KUSD", originParachain=2000, parachain=1000, EVMaccount="0x1270dbdE6Fa704f9363e47Dd05493D5dae329A4d", amount="1") => {
+
 
 					setTransfer_IsSubmiting(false);
 					setInputTranferAmount("");
@@ -84,6 +92,7 @@ const QuickTransfer = ({setupSpecs, relaySpecs, portfolio, icons, tickSymbols, b
 			}
        
 		}
+		else console.log("!!! setupSpecs.wallet && relaySpecs.api is not setup")
 
 	};
 
@@ -164,7 +173,9 @@ const QuickTransfer = ({setupSpecs, relaySpecs, portfolio, icons, tickSymbols, b
 											</Dropdown.Menu>
 									</Dropdown>
 								</div>
-								<input type="number"  className="form-control"  value={inputTranferAmount}  placeholder={baseCurrency===""?"":`Balance: ${baseCurrency}`} onChange = {(event) => setInputTranferAmount( Math.min( Number(event.target.value) ) )} style={{color:"Black"}} />
+								{/* <input type="number"  className="form-control"  value={inputTranferAmount}  placeholder={baseCurrency===""?"":`Balance: ${baseCurrency}`} onChange = {(event) => setInputTranferAmount( Math.min( Number(event.target.value) ) )} style={{color:"Black"}} /> */}
+								<input type="text"  className="form-control"  value={inputTranferAmount}  placeholder={baseCurrency===""?"":`Balance: ${baseCurrency}`} onChange = {(event) => setInputTranferAmount( event.target.value) } style={{color:"Black"}} />
+
 							</div>
 						</div>
 						<div className="form-group">
