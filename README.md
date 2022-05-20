@@ -15,6 +15,7 @@ B> INDEXERS CORE BOUNTY (SUBQUERY)
       2) Moonriver : https://github.com/Entity54/SubQuery_XCM_Moonriver
       3) Kusama    : https://github.com/Entity54/SubQuery_XCM_Kusama
 
+# XCMonitor Project<br>
 
 ## Website
 <br>
@@ -23,92 +24,96 @@ B> INDEXERS CORE BOUNTY (SUBQUERY)
 
 ## Video Link
 <br>
-<p> https://www.dropbox.com/home/2%20-%20Angelos/Moonriver%20Hackathon </p>
+<p> https://www.dropbox.com/sh/2jwe5gwfnqgp4w6/AAALomuK1fM9MzpIns2Lm5qpa?dl=0 </p>
 <br>
 
-
-
-
-## XCM TRANSFER CENTER 
+# XCM Transfer Center 
 ![plot](./Printscreens/XCMTransferCenter.png)
 <br>
 <br>
 <br>
-The XCM Transfer Center allows the user to send a token from one chain to another.<br>
+Within the XCM Transfer Center the user has the ability to transfer tokens between constituent Parachains and Relay Chains via the Cross Consensus Messing Format (XCM).
+<br>
+Two kinds of vertical message-passing transport protocols have been used in the project:
+
+      UMP (Upward Message Passing): This allows parachains to send messages to their relay chain.
+      DMP (Downward Message Passing): This allows the relay chain to pass messages down to one of its parachains.
+      
+In addition, the project has used:
+
+      HMRP (Horizontal Relay-routed Message Passing): This allows the parachains to exchange messages with other 
+      parachains on the same relay chain.
 <br>
 
-## STEP 1 Select Token and Fill in amount
-Firstly, the user has to select the token that he wants to transfer.
-Current options are KSM, KAR and AUSD
-Following that the "Number of tokens to send" field, has to be filled
+## STEP 1 - Select the token and fill in the amount
+Firstly, the user has to select the token that they would like to transfer.
+Current options are KSM, KAR and AUSD.
+Once this is completed, the "Number of tokens to send" field, needs to be populated.
 <br>
 <br>
 
-## STEP 2 Select Origin Chain
-Next the user chooses the Origin chain that his tokens exist at the moment.
-Current options are Moonriver, Karura and Kusama.<br>
+## STEP 2 - Select the origin chain
+Next the user chooses the origin chain where the tokens currently reside.
+Current options are Moonriver, Karura and Kusama.
 <br>
 <br>
-Notice that depending on his selection of the Origin Chain the MetaMask or Substrate account will be prefilled as shown on the loaded MetMask and Polkadot extensions.<br>
+Note that depending on the origin chain selection, the metamask or substrate account will be automatically populated as shown on the loaded metamask and polkadot extensions.<br>
 
-The user can choose to change his selected account by either changing his account in MetaMask Extension or the Polkadot dropdown button.<br>
+The user can choose to change the selected account by either changing his account in the metamask extension or the polkadot dropdown button.<br>
 <br>
 
-## STEP 3 Select Target Chain and Account
-Finally, the Target chain has to be chosen<br>
+## STEP 3 - Select the target chain and account
+Finally, the target chain has to be chosen.<br>
 Currently it is possible to send KAR and AUSD from Moonriver to Karura and vice versa
-and KSM from Moonriver to Kusama and viceversa.<br>
+and KSM from Moonriver to Kusama and viceversa.
 <br>
 <br>
 
-## STEP 4 Submit XCM Transaction
-Click the "SEND" button and the transaction is submitted.<br>
+## STEP 4 - Submit the XCM transaction
+Click the "SEND" button and the transaction will be submitted.<br>
 <br>
 <br>
 <br>
 
 
-## XCM EXPLORER
+# XCM EXPLORER
+<br>
+
 ![plot](./Printscreens/XCM_Explorer.png)
 <br>
-In the Explorer page the user can retrieve analytical inforamtion about his XCM transactions
+On the Explorer page the user can retrieve analytical inforamtion about the XCM transactions.
 
-## STEP 1 Choose Chain
-Select the chain of the account you are interested to retireve information about
-Currently supported chains are Moonriver, Karura, Kusama <br>
+## STEP 1 - Choose chain
+Select the chain of the account you are interested in to retrieve the information.
+Currently supported chains are Moonriver, Karura and Kusama.
 <br>
 <br>
 
-## STEP 2 Select Direction of Transfer
-<br>
-<br>
-By selecting Outgoing the withdrawals from the selected account and chain will be shown<br>
-By selecting Incomig the deposits from the selected account and chain will be shown<br>
+## STEP 2 - Select direction of transfer
+By selecting "Outgoing" the withdrawals from the selected account and chain will be displayed.<br>
+By selecting "Incoming" the deposits from the selected account and chain will be displayed.
 <br>
 <br>
  
-## STEP 3 Fill in Account address  
-<br>
+## STEP 3 - Fill in account address  
+Populate the field with the address that you wish to analyze.
 <br>
 <br>
 
-## STEP 4 Get Data 
-Click the "GET DATA" and the relvevant request is sent to the SubQuery servers<br>
+## STEP 4 - Get data 
+Click the "GET DATA" button and the relevant request will be sent to the SubQuery servers.
+<br>
+<br>
 
 The response shows analytical information about the requested transactions<br>
-For example now it is possible to see the block and timestamp of a past transaction, from which and to what account address, the amount of tokens and the destination parachain<br>
-Many more information is available such as Extrisnic Hash, XCM Message Hash, Treeasury Fees etc.
-<br>
-<br>
-<br>
+For example now it is possible to see the block and timestamp of a past transaction, the sending and receiving account addresses, the amount of tokens and the destination chain.<br>
+Much more information is also available such as Extrisnic Hash, XCM Message Hash, Treasury Fees etc.
 <br>
 <br>
 <br>
 
 
-## SUBQUERY SERVERS
-<br>
-<br>
+# SUBQUERY SERVERS<br>
 
 ## SUBQUERY KARURA
 ![plot](./Printscreens/SubQuery_Entity54_Karura.png)
