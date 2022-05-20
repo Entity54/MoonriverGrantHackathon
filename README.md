@@ -4,9 +4,17 @@ APPLICABLE BOUNTIES
 A> GRAND PRIZE  XCM CROSS-CHAIN EXPLORER
 
 B> INDEXERS CORE BOUNTY (SUBQUERY)
-PUBLIC SUBQUERY PROJECTS
-1) https://explorer.subquery.network/subquery/Entity54/karura_xcm_explorer?stage=true
-2) https://explorer.subquery.network/subquery/Entity54/moonriver_xcm_explorer?stage=true
+
+      PUBLIC SUBQUERY PROJECTS
+      1)  Karura    : https://explorer.subquery.network/subquery/Entity54/karura_xcm_explorer?stage=true
+      2)  Moonriver : https://explorer.subquery.network/subquery/Entity54/moonriver_xcm_explorer?stage=true
+      3)  Kusama    : https://api.subquery.network/sq/Entity54/kusama_xcm_explorer__RW50a
+
+      Entity54 Github SubQuery Projects
+      1) Karura    : https://github.com/Entity54/SubQuery_XCM_Karura
+      2) Moonriver : https://github.com/Entity54/SubQuery_XCM_Moonriver
+      3) Kusama    : https://github.com/Entity54/SubQuery_XCM_Kusama
+
 
 ## Website
 <br>
@@ -115,6 +123,17 @@ Many more information is available such as Extrisnic Hash, XCM Message Hash, Tre
 <br>
 <br>
 <br>
+
+
+## SUBQUERY KUSAMA
+![plot](./Printscreens/SubQuery_Entity54_MOVR.png)
+<br>
+<br>
+<br>
+<br>
+
+
+
 filter=`(filter: {fromAccountId20Id: {equalTo:"${account}"}})`;
 query {
                xTokensTransferredMultiAssetsEvents  ${filter}  {
