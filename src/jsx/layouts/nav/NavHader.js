@@ -21,7 +21,7 @@ const NavHader = ({blockHeader}) => {
                         <img alt="images" width={50} src={T54} />  
                   </div>
                   <div className="col-xl-8 col-xxl-8">
-                            <h6 style={{fontSize:"12px"}}>MOONBASE ALPHA</h6> 
+                            <h6 style={{fontSize:"12px"}}>MOONRIVER</h6> 
                             <h6 style={{fontSize:"12px"}}>#{blockHeader.number? blockHeader.number : "Not Connected"}</h6>
                   </div>
               </div>

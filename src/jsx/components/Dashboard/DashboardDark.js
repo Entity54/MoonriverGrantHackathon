@@ -3,7 +3,7 @@ import { ThemeContext } from "../../../context/ThemeContext";
 import MARKET from "./MARKET";
 
 
-const DashboardDark = ({ setupSpecs, oracleData, blockHeader, accountList }) => {
+const DashboardDark = () => {
 	const { changeBackground, background } = useContext(ThemeContext);
 	
 	useEffect(() => {
@@ -16,7 +16,7 @@ const DashboardDark = ({ setupSpecs, oracleData, blockHeader, accountList }) => 
 			<div className="row">
 				<div className="row">
 					<div className="col-xl-12">
-						<MARKET className="col-xl-12" blockHeader={blockHeader} oracleData={oracleData}/>	
+						<MARKET className="col-xl-12"/>	
 					</div>
 				</div>
 			</div>	

@@ -9,27 +9,27 @@ import {setup, setup_SubstrateChain, wallet, transferFromRelayToParachain, tranf
 
 // const QuickTrade = ({setupSpecs, portfolio, oracleData, accountList }) => {
 // const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, portfolio, icons, tickSymbols, blockHeader, customerPortfolio, accountList}) => {
-const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, accountList, icons}) => {
+const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, accountList, polakdotAccountSigner, icons}) => {
     
 	//#region xcmRputes schema  Token=> OriginChain => ArrayOfTragetChains
     const xcmRoutes = {
                          "KSM": {
-									"Kusama1": ["Moonriver11"],
-									"Moonriver1": ["Kusama11"], 
+									"Kusama": ["Moonriver"],
+									"Moonriver": ["Kusama"], 
 						        },
 						 "KAR": {
-									"Karura2": ["Moonriver22"],
-									"Moonriver2": ["Karura22"], 
+									"Karura": ["Moonriver"],
+									"Moonriver": ["Karura"], 
 								},
 						 "AUSD": {
-									"Karura3": ["Moonriver33"],
-									"Moonriver3": ["Karura33"], 
+									"Karura": ["Moonriver"],
+									"Moonriver": ["Karura"], 
 								 }
 					};
     //#endregion
     
 	const parachainCodes = {   
-								Moonriver: 1000, //2023
+								Moonriver: 2023,   
 								Karura   : 2000,
 								
 								MoonbaseAlpha : 1000,
@@ -53,7 +53,7 @@ const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, acco
 	const [sendToAddress, setSendToAddress] = useState("");	
     
 	const [transfer_IsSubmiting, setTransfer_IsSubmiting] = useState(false);
-    const [transactionMessage, setTransactionMessage] = useState("...........");
+    const [transactionMessage, setTransactionMessage] = useState("");
 	
 	const relayTokenPrecompileAddress = "0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080";  //xcUNIT or xcKSM
 
@@ -459,7 +459,7 @@ const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, acco
 
 				    <Dropdown>
 							{/* <Dropdown.Toggle variant="" as="div" className="input-group-text form-control style-2 default-select cursor-pointer" style={{backgroundColor:"black",}}>{baseCurrency} </Dropdown.Toggle> */}
-							<Dropdown.Toggle variant="" as="div" className="input-group-text form-control style-2 default-select cursor-pointer">{baseCurrency} </Dropdown.Toggle>
+							<Dropdown.Toggle variant="" as="div" className="input-group-text form-control default-select cursor-pointer"  style={{fontSize:"22px"}}>{baseCurrency} </Dropdown.Toggle>
 
 							<Dropdown.Menu style={{height:"150px", overflowY: "scroll"}} >
 								{tokenDropDownn}
@@ -471,6 +471,9 @@ const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, acco
 					if (swapQuote===1) setInput_Supply(event.target.value); 
 				}
 				} /> */}
+				<div>
+					<input type="text" className="form-control" value={inputTranferAmount} placeholder={"Number of tokens to send"} onChange = {(event) => setInputTranferAmount( event.target.value) } style={{color:"white", width:"450px" }} />
+				</div>
 
 			</div>
 		</div>
@@ -481,7 +484,7 @@ const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, acco
 				<div className="input-group input-group-lg">
 					<div className="input-group-prepend">
 						<Dropdown>
-							<Dropdown.Toggle variant="" as="div" className="input-group-text form-control style-2 default-select cursor-pointer">{destination}</Dropdown.Toggle>
+							<Dropdown.Toggle variant="" as="div" className="input-group-text form-control default-select cursor-pointer" style={{fontSize:"22px", textAlign:"center"}}>{destination}</Dropdown.Toggle>
 							<Dropdown.Menu style={{height:"100px", overflowY: "scroll"}}>{tokenDropDownsDestination}</Dropdown.Menu>
 						</Dropdown>
 					</div>
@@ -489,7 +492,12 @@ const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, acco
 						if (swapQuote===1) setInput_Supply(event.target.value); 
 					}
 					} /> */}
-					<input type="text" className="form-control" value={inputTranferAmount} placeholder={"Number of tokens to send"} onChange = {(event) => setInputTranferAmount( event.target.value) } style={{color:"white"}} />
+					{/* <input type="text" className="form-control" value={inputTranferAmount} placeholder={"Number of tokens to send"} onChange = {(event) => setInputTranferAmount( event.target.value) } style={{color:"white"}} /> */}
+					
+					<input type="text" className="form-control" 
+					// value={"somehting"} 
+					value={`From Account: ${destination==="Moonriver"? accountList[0] : polakdotAccountSigner.address}`}   style={{color:"white", fontSize:"18px"}} />
+					
 				</div>
 			</div>
 						);
@@ -498,7 +506,7 @@ const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, acco
 				<div className="input-group input-group-lg">
 					<div className="input-group-prepend">
 						<Dropdown>
-							<Dropdown.Toggle variant="" as="div" className="input-group-text form-control style-2 default-select cursor-pointer">{targetChainDestination}</Dropdown.Toggle>
+							<Dropdown.Toggle variant="" as="div" className="input-group-text form-control default-select cursor-pointer"  style={{fontSize:"22px"}}>{targetChainDestination}</Dropdown.Toggle>
 							<Dropdown.Menu style={{height:"100px", overflowY: "scroll"}}>{targetChainDropDownsDestination}</Dropdown.Menu>
 						</Dropdown>
 
@@ -511,7 +519,7 @@ const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, acco
 						setInput_Supply(event.target.value);
 						}
 					} /> */}
-					<input type="text" className="form-control" value={sendToAddress} placeholder={"Account Address"} onChange = {(event) => setSendToAddress(event.target.value)} style={{fontSize: "18px", color: "white"}} />
+					<input type="text" className="form-control" value={sendToAddress} placeholder={"Destination Account Address"} onChange = {(event) => setSendToAddress(event.target.value)} style={{ color: "white"}} />
 				</div>
 			</div>
 						)
@@ -526,7 +534,7 @@ const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, acco
 				<div className="card-header d-block ">
 
 					<div>
-						<h4 className="fs-20 text-black"  style={{textAlign:"center"}}>XCM Transfers Center</h4>
+						<h4 className="fs-36 text-black"  style={{textAlign:"center"}}>XCM Transfer Center</h4>
 					</div>
 				</div>
 				<div className="card-body">
@@ -541,7 +549,8 @@ const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, acco
 									<div className="row" style={{marginBottom:"10px"}}>
 										<div className="col-xl-9 col-xxl-12"></div>
 										<div className="col-xl-3 col-xxl-12">
-											<span>Available {availableBalance}</span>
+										    {/* <span style={{marginRight:"20px"}}>From Account {destination==="Moonriver"? accountList[0] : polakdotAccountSigner.address }</span> */}
+											{/* <span style={{color:"green"}}>Balance {availableBalance}</span> */}
 										</div>
 									</div>
 
@@ -552,7 +561,7 @@ const QuickTrade = ({setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, acco
 									<div className="row" style={{marginBottom:"10px"}}>
 										<div className="col-xl-9 col-xxl-12"></div>
 										<div className="col-xl-3 col-xxl-12">
-											<span>Balance {targetAccountBalance}</span>
+											{/* <span style={{color:"green"}}>Balance {targetAccountBalance}</span> */}
 										</div>
 									</div>
 

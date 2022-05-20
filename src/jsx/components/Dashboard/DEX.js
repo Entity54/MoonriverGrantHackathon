@@ -5,7 +5,7 @@ import QuickTrade from '../Boltz/Home/ntt54_QuickTrade';
 import Faucet from '../Boltz/Home/ntt54_Faucet';
 
  
-const DEX = ({ setupSpecs, polkadtoAccountList, relaySpecs, karuraAlphaSpecs, portfolio, oracleData, accountList, blockHeader }) => {
+const DEX = ({ setupSpecs, relaySpecs, karuraAlphaSpecs, blockHeader, accountList, polakdotAccountSigner }) => {
 	const { changeBackground, background } = useContext(ThemeContext);
 	
 	useEffect(() => {
@@ -18,7 +18,9 @@ const DEX = ({ setupSpecs, polkadtoAccountList, relaySpecs, karuraAlphaSpecs, po
 						<div className="col-xl-3 col-xxl-12">
 						</div>
 						<div className="col-xl-6 col-xxl-12">
-							<QuickTrade setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} portfolio={portfolio} oracleData={oracleData} accountList={accountList} blockHeader={blockHeader}/>
+							{/* <QuickTrade setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} portfolio={portfolio} oracleData={oracleData} accountList={accountList} blockHeader={blockHeader}/> */}
+							<QuickTrade setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} blockHeader={blockHeader}  accountList={accountList} polakdotAccountSigner={polakdotAccountSigner} />
+
 						</div>
 						<div className="col-xl-3 col-xxl-12">
 						</div>

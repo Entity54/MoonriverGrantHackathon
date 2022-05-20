@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import {  Sparklines, SparklinesLine } from 'react-sparklines';
+// import {  Sparklines, SparklinesLine } from 'react-sparklines';
+import {Dropdown} from 'react-bootstrap';
+// import {Link} from 'react-router-dom';
+import { utils } from 'ethers';  
+
 
 import axios from 'axios'; 
 import { 
@@ -12,29 +16,35 @@ import {
 
  
 
-//TODO sparkPriceArray
-const sampleData1 = [2,2,2,4,4,5,4,6,5,7,6,8,7,9,8,4,7,6,8,7];
-const sampleData2 = [2,3,4,5,6,5,4,6,5,7,2,3,4,5,3,2,5,4,5,7];
-const sampleData3 = [2,2,4,3,2,4,3,3,4,2,1,3,2,4,2,3,5,4,3,2];
-const sampleData4 = [6,2,3,2,3,5,3,3,7,2,4,7,5,1,3,6,5,9];
-const sampleData5 = [6,2,3,2,3,5,4,3,2,2,4,5,2,5,5,4,3,1,3,4,5,6];
-const sampleData6 = [1,2,3,1,4,2,4,2,2,1,2,5,1,4,1,1,5,4,3,2,4,2];
-const sampleData7 = [2,3,4,5,6,5,4,6,5,7,2,3,4,5,3,2,5,4,5,7];
-const sampleData8 = [2,2,2,4,4,5,4,6,5,7,6,8,7,9,8,4,7,6,8,7];
-const sampleData9 = [1,2,3,1,4,2,4,2,2,1,2,5,1,4,1,1,5,4,3,2,4,2];
+//sparkPriceArray
+// const sampleData1 = [2,2,2,4,4,5,4,6,5,7,6,8,7,9,8,4,7,6,8,7];
+// const sampleData2 = [2,3,4,5,6,5,4,6,5,7,2,3,4,5,3,2,5,4,5,7];
+// const sampleData3 = [2,2,4,3,2,4,3,3,4,2,1,3,2,4,2,3,5,4,3,2];
+// const sampleData4 = [6,2,3,2,3,5,3,3,7,2,4,7,5,1,3,6,5,9];
+// const sampleData5 = [6,2,3,2,3,5,4,3,2,2,4,5,2,5,5,4,3,1,3,4,5,6];
+// const sampleData6 = [1,2,3,1,4,2,4,2,2,1,2,5,1,4,1,1,5,4,3,2,4,2];
+// const sampleData7 = [2,3,4,5,6,5,4,6,5,7,2,3,4,5,3,2,5,4,5,7];
+// const sampleData8 = [2,2,2,4,4,5,4,6,5,7,6,8,7,9,8,4,7,6,8,7];
+// const sampleData9 = [1,2,3,1,4,2,4,2,2,1,2,5,1,4,1,1,5,4,3,2,4,2];
  
-const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices, total_CoinSupply }) => {
+const MarketCapital = () => {
 	const [data, setData] = useState(document.querySelectorAll("#marketCapital tbody tr"));
 	const sort = 9;
 	const activePag = useRef(0);
-	const [test, settest] = useState(0);
+	// const [test, settest] = useState(0);
 
 	const [txDataList, setTxDataList] = useState(null);
 	const [labelsList, setLabelsList] = useState(null);
 
+	const [explorerOriginChain, setExplorerOriginChain] = useState("Chain");
+	const [queryDestination, setQueryDestination] = useState("From");
+	const [querriedAccount, setQuerriedAccount] = useState("");
+
+	const [direction, setDirection] = useState("Direction");
 
 
 
+	 
     // Active data
 	const chageData = (frist, sec) => {
 		for (var i = 0; i < data.length; ++i) {
@@ -46,41 +56,41 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 		}
 	};
 
-
-	const getsparkData = (index) => {
-		let dataArray;
-		switch (index%9) {
-			case 1:
-				dataArray = sampleData1;
-				break;
-			case 2:
-				dataArray = sampleData2;
-				break;
-			case 3:
-				dataArray = sampleData3;
-				break;
-			case 4:
-				dataArray = sampleData4;
-				break;
-			case 5:
-				dataArray = sampleData5;
-				break;
-			case 6:
-				dataArray = sampleData6;
-				break;
-			case 7:
-				dataArray = sampleData7;
-				break;
-			case 8:
-				dataArray = sampleData8;
-				break;
-			case 0:
-				dataArray = sampleData9;
-				break;
-		}
-		return dataArray;
-	}
-
+	//#region
+	// const getsparkData = (index) => {
+	// 	let dataArray;
+	// 	switch (index%9) {
+	// 		case 1:
+	// 			dataArray = sampleData1;
+	// 			break;
+	// 		case 2:
+	// 			dataArray = sampleData2;
+	// 			break;
+	// 		case 3:
+	// 			dataArray = sampleData3;
+	// 			break;
+	// 		case 4:
+	// 			dataArray = sampleData4;
+	// 			break;
+	// 		case 5:
+	// 			dataArray = sampleData5;
+	// 			break;
+	// 		case 6:
+	// 			dataArray = sampleData6;
+	// 			break;
+	// 		case 7:
+	// 			dataArray = sampleData7;
+	// 			break;
+	// 		case 8:
+	// 			dataArray = sampleData8;
+	// 			break;
+	// 		case 0:
+	// 			dataArray = sampleData9;
+	// 			break;
+	// 	}
+	// 	return dataArray;
+	// }
+	//#endregion
     
 	//#region ORACLE DATA
 	//#region
@@ -98,10 +108,10 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 						<td>{ticker.timestamp}</td>
 						<td>{ticker.fromAccountId32}</td>
 						<td>{ticker.toAccountId32Id}</td>
-						<td>{ticker.netReceivedAmount}</td>
+						<td>{ utils.formatUnits( ticker.netReceivedAmount, 12 )}</td>
 						<td>{ticker.token}</td>
 						<td>{ticker.extrinsicHash}</td>
-						<td>{ticker.treasuryFees}</td>
+						<td>{ utils.formatUnits( ticker.treasuryFees, 12 )}</td>
 						<td>{ticker.treasuryAddress}</td>
 						<td>{ticker.xcmHash}</td>
 					</tr>
@@ -127,12 +137,12 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 						<td>{ticker.blockNum}</td>
 						<td>{ticker.timestamp}</td>
 						<td>{ticker.toAddressId20Id}</td>
-						<td>{ticker.receivedAmount}</td>
+						<td>{ utils.formatUnits( ticker.receivedAmount, 12 )}</td>
 						<td>{ticker.asset}</td>
 						<td>{ticker.extrinsicHash}</td>
 						<td>{ticker.sentAtKusamaBlockNum}</td>
 						<td>{ticker.dmpQueueID}</td>
-						<td>{ticker.treasuryAmount}</td>
+						<td>{ utils.formatUnits( ticker.treasuryAmount, 12 )}</td>
 						<td>{ticker.treasuryAddress}</td>
 						<td>{ticker.downMsgHash}</td>
 						<td>{ticker.downwardMsg}</td>
@@ -165,12 +175,12 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 						<td>{ticker.timestamp}</td>
 						<td>{ticker.fromAccountId20Id}</td>
 						<td>{ticker.toAccountId32Id}</td>
-						<td>{ticker.sentAmount}</td>
+						<td>{ utils.formatUnits( ticker.sentAmount, 12 ) }</td>
 						<td>{ticker.transferredToken}</td>
 						<td>{ticker.toChainName}</td>
 						<td>{ticker.extrinsicHash}</td>
 						<td>{ticker.xcmpMessage}</td>
-						<td>{ticker.treasuryFees}</td>
+						<td>{ utils.formatUnits( ticker.treasuryFees, 12 )}</td>
 						<td>{ticker.treasuryAdress}</td>
 						{/* <td>{"_oracleData.tokenAddresses[index]"}</td> */}
 						{/* <td>{ "new Date(1000 * Number( _oracleData.timestamp[index] )).toISOString()" }</td> */}
@@ -254,62 +264,69 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 	}
 	//#endregion
 
-
-	const sendRequest_KaruraDepositsToAcount = async (network="Karura", account="tkD79qwULPRxQTVaKe4zEGMwTh5EjY4gd9s3CXer9XNFGwb") => {	 
+	//tkD79qwULPRxQTVaKe4zEGMwTh5EjY4gd9s3CXer9XNFGwb 
+	const sendRequest_KaruraDepositsToAcount = async (network="Karura", account="") => {	 
 		console.log(`SENDING  A SUBQUERY 4`);
 		let url;
 		if (network==="Karura") url = 'https://api.subquery.network/sq/Entity54/karura_xcm_explorer__RW50a';
 		else if (network==="Kusama") url = 'https://api.subquery.network/sq/Entity54/karura_xcm_explorer__RW50a';
 		
-	    const query = query_XTokensTransferredMultiAssetsEvents_FromAccount(account);
-		// const query = query_XcmpQueueEvent_Karura_toAccount("tkD79qwULPRxQTVaKe4zEGMwTh5EjY4gd9s3CXer9XNFGwb");
+	    // const query = query_XTokensTransferredMultiAssetsEvents_FromAccount(account);
+		const query = query_XcmpQueueEvent_Karura_toAccount(account);
 		axios({ url: `${url}`, method: 'post', data: { query: query } })
 		.then((result) => {
 				console.log("====> GRAPHQL sendRequest 4 ======> : ",result.data)
 				const dataArray = result.data.data.xcmpQueueEvents.nodes;
-				setLabelsList(labels_KaruraDepositsToAcount());
+				// setLabelsList(labels_KaruraDepositsToAcount());
 				setTxDataList( refreshData_KaruraDepositsToAcount(dataArray) );
 		});
 	};
-
-    const sendRequest_MoonriverDepositsToAcount = async (network="Moonriver", account="0xa95b7843825449DC588EC06018B48019D1111000") => {	
-		console.log(`SENDING  A SUBQUERY 3`);
+    
+	//0xa95b7843825449DC588EC06018B48019D1111000
+    const sendRequest_MoonriverDepositsToAcount = async (network="Moonriver", account="") => {	
+		console.log(`SENDING  A SUBQUERY 3 account: `,account);
 		let url;
 		if (network==="Moonriver") url = 'https://api.subquery.network/sq/Entity54/moonriver_xcm_explorer__RW50a';
 		else if (network==="Karura") url = 'https://api.subquery.network/sq/Entity54/karura_xcm_explorer__RW50a';
 		else if (network==="Kusama") url = 'https://api.subquery.network/sq/Entity54/moonriver_xcm_explorer__RW50a';
 		
-	    const query = query_XTokensTransferredMultiAssetsEvents_FromAccount(account);
-		// const query = query_DMPQueueEvent_toAccount("0xa95b7843825449DC588EC06018B48019D1111000");
+	    // const query = query_XTokensTransferredMultiAssetsEvents_FromAccount(account);
+		const query = query_DMPQueueEvent_toAccount(account);
+		console.log(`=====> query: `,query);
+
 		axios({ url: `${url}`, method: 'post', data: { query: query } })
 		.then((result) => {
+			console.log("====> GRAPHQL sendRequest 3 ======> url: ",url);
+			console.log("====> GRAPHQL sendRequest 3 ======> query: ",query);
+			console.log("====> GRAPHQL sendRequest 3 ======> result: ",result)
+
 				console.log("====> GRAPHQL sendRequest 3 ======> : ",result.data)
 				const dataArray = result.data.data.dMPQueueEvents.nodes;
-				setLabelsList(labels_MoonriverDepositsToAcount());
+				// setLabelsList(labels_MoonriverDepositsToAcount());
 				setTxDataList( refreshData_MoonriverDepositsToAcount(dataArray) );
 		});
 	};
 
-	const sendRequest_MoonriverTransfersFromAccount_KSM = async (network="Moonriver", account="0xa95b7843825449DC588EC06018B48019D1111000") => {
+	const sendRequest_MoonriverTransfersFromAccount_KSM = async (network="Moonriver", account="") => {
 		console.log(`SENDING  A SUBQUERY 2`);
 		let url;
 		if (network==="Moonriver") url = 'https://api.subquery.network/sq/Entity54/moonriver_xcm_explorer__RW50a';
 		else if (network==="Karura") url = 'https://api.subquery.network/sq/Entity54/karura_xcm_explorer__RW50a';
 		else if (network==="Kusama") url = 'https://api.subquery.network/sq/Entity54/moonriver_xcm_explorer__RW50a';
 		
-	    const query = query_XTokensTransferredMultiAssetsEvents_FromAccount(account);
-		// const query = query_XTokensTransferredEvents_FromAccount("0xa95b7843825449DC588EC06018B48019D1111000");
+	    // const query = query_XTokensTransferredMultiAssetsEvents_FromAccount(account);
+		const query = query_XTokensTransferredEvents_FromAccount(account);
 		axios({ url: `${url}`, method: 'post', data: { query: query } })
 		.then((result) => {
 				console.log("====> GRAPHQL sendRequest 2 ======> : ",result.data)
 				const dataArray = result.data.data.xTokensTransferredEvents.nodes;
-				setLabelsList(labels_MoonriverTransfersFromAccount());
+				// setLabelsList(labels_MoonriverTransfersFromAccount());
 				setTxDataList( refreshData_MoonriverTransfersFromAccount(dataArray) );
 		});
 	};
 
 	const sendRequest_MoonriverTransfersFromAccount = async (network="Moonriver", account="tkD79qwULPRxQTVaKe4zEGMwTh5EjY4gd9s3CXer9XNFGwb") => {
-		console.log(`SENDING  A SUBQUERY`);
+		console.log(`SENDING  A SUBQUERY account: `,account);
 		let url;
 		if (network==="Moonriver") url = 'https://api.subquery.network/sq/Entity54/moonriver_xcm_explorer__RW50a';
 		else if (network==="Karura") url = 'https://api.subquery.network/sq/Entity54/karura_xcm_explorer__RW50a';
@@ -324,8 +341,25 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 				console.log("====> GRAPHQL sendRequest 1 ======> : ",result.data)
 				// refreshData(result.data);
 				const dataArray = result.data.data.xTokensTransferredMultiAssetsEvents.nodes;
-				setLabelsList(labels_MoonriverTransfersFromAccount());
-				setTxDataList( refreshData_MoonriverTransfersFromAccount(dataArray) );
+				// setLabelsList(labels_MoonriverTransfersFromAccount());
+				// setTxDataList( refreshData_MoonriverTransfersFromAccount(dataArray) );
+                
+				if (network==="Moonriver")  //To capture transfers from Moonriver to both Karura and Kusama
+				{
+		            const query2 = query_XTokensTransferredEvents_FromAccount(account);
+					axios({ url: `${url}`, method: 'post', data: { query: query2 } })
+					.then((result2) => {
+							console.log("====> GRAPHQL sendRequest 2 ======> : ",result2.data)
+							const dataArray2 = result2.data.data.xTokensTransferredEvents.nodes;
+							console.log(`dataArray2: `,dataArray2);
+							console.log(`dataArray: `,dataArray);
+
+							const data = [...dataArray,...dataArray2]; 
+							setTxDataList( refreshData_MoonriverTransfersFromAccount(data) );
+					});
+				}
+				else setTxDataList( refreshData_MoonriverTransfersFromAccount(dataArray) );
+
 				//#region Example
 				// {data: {…}}
 				// data:
@@ -349,7 +383,7 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 
 	useEffect(() => {
 		console.log(`sendRequest is Running Ole ====>`);
-		setLabelsList(labels_KaruraDepositsToAcount());
+		setLabelsList(labels_MoonriverTransfersFromAccount());
 		sendRequest_MoonriverTransfersFromAccount("Karura");
 		// sendRequest_MoonriverTransfersFromAccount_KSM();
 		// sendRequest_MoonriverDepositsToAcount();
@@ -372,8 +406,115 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 	const onClick = (i) => {
 		activePag.current = i;
 		chageData(activePag.current * sort, (activePag.current + 1) * sort);
-		settest(i);
+		// settest(i);
 	};
+
+    //#region 
+	const submitQuery = () => {
+		console.log(`The Query that will be submitted reads explorerOriginChain:${explorerOriginChain} queryDestination:${queryDestination} querriedAccount:${querriedAccount}`);
+		if (explorerOriginChain==="Moonriver" && queryDestination==="From")
+		{
+			console.log(`Will send Query ${explorerOriginChain} ${queryDestination}`)
+			setLabelsList(labels_MoonriverTransfersFromAccount());
+     		sendRequest_MoonriverTransfersFromAccount("Moonriver",querriedAccount);
+		}
+		else if (explorerOriginChain==="Moonriver" && queryDestination==="To")
+		{
+			console.log(`Will send Query ${explorerOriginChain} ${queryDestination}`)
+			setLabelsList(labels_MoonriverDepositsToAcount());
+			sendRequest_MoonriverDepositsToAcount("Moonriver",querriedAccount);
+		}
+		else if (explorerOriginChain==="Karura" && queryDestination==="From")
+		{
+			console.log(`Will send Query ${explorerOriginChain} ${queryDestination}`)
+			setLabelsList(labels_MoonriverTransfersFromAccount());
+			sendRequest_MoonriverTransfersFromAccount("Karura",querriedAccount);
+			//TODO COMBINE WITH sendRequest_KaruraDepositsToAcount FOR KUSD/AUSD
+
+		}
+		else if (explorerOriginChain==="Karura" && queryDestination==="To")
+		{
+			console.log(`Will send Query ${explorerOriginChain} ${queryDestination}`)
+			setLabelsList(labels_KaruraDepositsToAcount());
+			sendRequest_KaruraDepositsToAcount("Karura",querriedAccount);
+		}
+		else if (explorerOriginChain==="Kusama"  && queryDestination==="From")
+		{
+			console.log(`Will send Query ${explorerOriginChain} ${queryDestination}`)
+		}
+		else if (explorerOriginChain==="Kusama"  && queryDestination==="To")
+		{
+			console.log(`Will send Query ${explorerOriginChain} ${queryDestination}`)
+		}
+		
+
+	};
+    //#endregion 
+
+	const queryFilterOptions =   (			
+		<div className="form-group">
+			<div className="input-group input-group-lg">
+			<div className="input-group-prepend">
+					<Dropdown>
+						<Dropdown.Toggle variant="" as="div" className="input-group-text form-control style-2 default-select cursor-pointer" style={{width:"180px"}}>{explorerOriginChain}</Dropdown.Toggle>
+						<Dropdown.Menu style={{height:"150px", overflowY: "scroll"}}> 
+									<Dropdown.Item key={1} onClick={() => { 
+										setExplorerOriginChain("Moonriver");
+										console.log(`Chosen chain is Moonriver`);
+									} }>Moonriver</Dropdown.Item>
+									<Dropdown.Item key={2} onClick={() => { 
+										setExplorerOriginChain("Karura");
+										console.log(`Chosen chain is Karura`);
+									} }>Karura</Dropdown.Item>
+									<Dropdown.Item key={3} onClick={() => { 
+										setExplorerOriginChain("Kusama");
+										console.log(`Chosen chain is Kusama`);
+									} }>Kusama</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
+
+				</div>
+				<div className="input-group-prepend">
+					<Dropdown>
+						{/* <Dropdown.Toggle variant="" as="div" className="input-group-text form-control style-2 default-select cursor-pointer" style={{width:"180px"}}>{queryDestination} Account</Dropdown.Toggle> */}
+						<Dropdown.Toggle variant="" as="div" className="input-group-text form-control style-2 default-select cursor-pointer" style={{width:"180px"}}>{direction}</Dropdown.Toggle>
+
+						<Dropdown.Menu style={{height:"150px", overflowY: "scroll"}}> 
+									<Dropdown.Item key={1} onClick={() => { 
+										setQueryDestination("From");
+										setDirection("Outgoing");
+										console.log(`Chosen chain is From`);
+									} }>Outgoing</Dropdown.Item>
+									<Dropdown.Item key={2} onClick={() => { 
+										setQueryDestination("To");
+										setDirection("Incoming");
+										console.log(`Chosen chain is To`);
+									} }>Incoming</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
+
+				</div>
+				<div>
+					<input type="text" className="form-control" value={querriedAccount} placeholder={"Account Address"} onChange = {(event) => setQuerriedAccount(event.target.value)} style={{fontSize: "16px", color: "white", textAlign:"center", width:"500px"}} />
+				</div>
+				<div className="dataTables_paginate " id="" style={{color:"white"}}>
+				<span className="paginate_button previous disabled" to=""  onClick = {submitQuery}>
+									GET DATA
+								</span>
+				{/* <button className="btn-primary paginate_button previous " style={{border: "none", color:"white"}} ><span className="" to="">GET DATA</span></button>  */}
+					{/* <div className="col-sm-6"  style={{marginTop:"20px"}}> */}
+										{/* <Link to={"#"} className="btn btn-primary d-block btn-lg rounded"> */}
+    				                    	{/* <button className="btn-primary" disabled = { swapWithExactSupply_IsSubmiting } onClick = { _swapWithExactSupply } style={{border: "none"}}>SEND</button>  */}
+    				                    	{/* <button className="btn-primary" disabled = { false } style={{border: "none"}}>SEND</button>  */}
+											{/* <button className="btn-primary" disabled={transfer_IsSubmiting} style={{border: "none"}}  onClick = {transferBalance}>SEND</button>  */}
+											{/* <button className="btn-primary"   style={{border: "none"}}  >SEND</button> 
+
+										</Link>
+					</div>*/}
+				</div> 
+			</div>
+		</div>
+	)
 	
 	
   return (
@@ -381,6 +522,21 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 		<div className="row">
 			<div className="col-xl-12">
 				<div className="table-responsive table-hover fs-14 " style={{backgroundColor:"", height:"75vh"}}>
+					
+					<div id="example6_wrapper" className="dataTables_wrapper no-footer">
+						<table className="table display  mb-4 dataTablesCard   market-tbl  border-no  text-black no-footer border-0" 
+							id="marketCapital" role="grid" aria-describedby="example6_info" style={{backgroundColor:"", margin:"10px", width:"99%"}}> 
+							<thead>
+				          	    <tr role="row">
+								 	<td className="" tabIndex={0}  rowSpan={1} colSpan={1}>{queryFilterOptions}</td>
+									{/* <th className="" tabIndex={0}  rowSpan={1} colSpan={1}>Block Number</th> */}
+								</tr>
+							</thead>
+						</table>
+					</div>
+
+					
+					
 					<div id="example6_wrapper" className="dataTables_wrapper no-footer">
 						<table className="table display  mb-4 dataTablesCard   market-tbl  border-no  text-black no-footer border-0" 
 							id="marketCapital" role="grid" aria-describedby="example6_info" style={{backgroundColor:"", margin:"10px", width:"99%"}}> 
@@ -407,7 +563,7 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 								{txDataList}
 							</tbody>
 						</table>
-						<div className="d-sm-flex text-center justify-content-between align-items-center mt-3">
+						{/* <div className="d-sm-flex text-center justify-content-between align-items-center mt-3">
 							<div className="dataTables_info">
 								  Showing {activePag.current * sort + 1} to{" "}
 								  {data.length > (activePag.current + 1) * sort
@@ -430,7 +586,7 @@ const MarketCapital = ({ blockHeader, oracleData, sparkPriceArray, oraclePrices,
 									Next
 								</span>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>

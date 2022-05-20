@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'    
-
 import { Dropdown } from "react-bootstrap";
  
 
-const Header = ({ setupSpecs, blockHeader, polakdotSignerfunction, polkadtoAccountList, evm_api_state, accountList, selectedAccountName }) => {
+const Header = ({ setupSpecs, blockHeader, polakdotSignerfunction, polkadtoAccountList, evm_api_state, accountList }) => {
 
 	const [dropdowncolor, setDropdowncolor] = useState("#DE5106");
 	const [dropdownDisabled, setDropdownDisabled] = useState(true);		

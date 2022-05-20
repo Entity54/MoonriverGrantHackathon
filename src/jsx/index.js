@@ -22,7 +22,7 @@ import QuickTransfer from '../ntt54_QuickTransfer';
 
 import { ThemeContext } from "../context/ThemeContext"; 
 
-const Markup = ( { setupSpecs, polakdotSignerfunction, polkadtoAccountList, relaySpecs, karuraAlphaSpecs, portfolio, oracleData, blockChainSpecs, blockHeader, blockTimestamp, evm_api_state, accountList, selectedAccountName }) => {
+const Markup = ( { setupSpecs, polakdotSignerfunction, polkadtoAccountList, relaySpecs, karuraAlphaSpecs, portfolio, oracleData, blockChainSpecs, blockHeader, blockTimestamp, evm_api_state, accountList, selectedAccountName, polakdotAccountSigner }) => {
 
   const { menuToggle } = useContext(ThemeContext);
 
@@ -35,7 +35,7 @@ const Markup = ( { setupSpecs, polakdotSignerfunction, polkadtoAccountList, rela
     <>
       <div id={`${!pagePath ? "main-wrapper" : ""}`} className={`${!pagePath ? "show" : "mh100vh"}  ${menuToggle ? "menu-toggle" : ""}`}>
 
-        {!pagePath && <Header setupSpecs={setupSpecs} polakdotSignerfunction={polakdotSignerfunction} polkadtoAccountList={polkadtoAccountList} evm_api_state={evm_api_state} blockHeader={blockHeader} accountList={accountList} selectedAccountName={selectedAccountName}  />}
+        {!pagePath && <Header setupSpecs={setupSpecs} polakdotSignerfunction={polakdotSignerfunction} polkadtoAccountList={polkadtoAccountList} evm_api_state={evm_api_state} blockHeader={blockHeader} accountList={accountList}/>}
         {!pagePath && <NAV_NavHade blockHeader={blockHeader} />}
         {!pagePath && <NAV_SideBar />}
 
@@ -50,23 +50,25 @@ const Markup = ( { setupSpecs, polakdotSignerfunction, polkadtoAccountList, rela
 
               <Route exact path='/dashboard-dark'> 
                     {/* <DashboardDark setupSpecs={setupSpecs} oracleData={oracleData} blockHeader={blockHeader} accountList={accountList} />  */}
-                     <DEX  setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} portfolio={portfolio} oracleData={oracleData} blockHeader={blockHeader} accountList={accountList} /> 
+                     {/* <DEX  setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} portfolio={portfolio} oracleData={oracleData} blockHeader={blockHeader} accountList={accountList} />  */}
+                     <DEX  setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} blockHeader={blockHeader}  accountList={accountList}  polakdotAccountSigner={polakdotAccountSigner} /> 
 
               </Route>
               {/* <Route exact path='/portofolio'> <Portofolio  setupSpecs={setupSpecs} portfolio={portfolio} blockHeader={blockHeader} accountList={accountList}/> </Route> */}
-              <Route exact path='/portofolio'> 
+              {/* <Route exact path='/portofolio'> 
 	   					    <QuickTransfer setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} portfolio={portfolio} blockHeader={blockHeader}/>
-              </Route>
+              </Route> */}
               <Route exact path='/'> 
 	   					    {/* <QuickTransfer setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} portfolio={portfolio} blockHeader={blockHeader}/> */}
-                   <DEX  setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} portfolio={portfolio} oracleData={oracleData} blockHeader={blockHeader} accountList={accountList} /> 
+                   <DEX  setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} blockHeader={blockHeader}  accountList={accountList}  polakdotAccountSigner={polakdotAccountSigner} /> 
 
 
               </Route>
 
               <Route exact path='/dex'> 
                   {/* <DEX  setupSpecs={setupSpecs} relaySpecs={relaySpecs} karuraAlphaSpecs={karuraAlphaSpecs} portfolio={portfolio} oracleData={oracleData} blockHeader={blockHeader} accountList={accountList} />  */}
-                    <DashboardDark setupSpecs={setupSpecs} oracleData={oracleData} blockHeader={blockHeader} accountList={accountList} /> 
+                    {/* <DashboardDark setupSpecs={setupSpecs} oracleData={oracleData} blockHeader={blockHeader} accountList={accountList} />  */}
+                    <DashboardDark/> 
 
               </Route>
             </Switch> 

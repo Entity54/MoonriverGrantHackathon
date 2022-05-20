@@ -166,11 +166,6 @@ const transfer_xcKSMtoKSM = async (_amount, destinationRelayAccount) => {
   //  });
   //#endregion This will be removedonce linked properly to the right button
 
-
-
-
-
-
   //Moonriver xcTokens Precompiles Addresses 
   const relayTokenPrecompileAddress = "0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080";  //xcUNIT
 
@@ -200,35 +195,6 @@ const transfer_xcKSMtoKSM = async (_amount, destinationRelayAccount) => {
 //#endregion
 
 
-//#region ***** DUPLICATE TO DELETE Setup Substrate Chain //*****
-// const setup_SubstrateChain = async (wsURL = 'MoonbaseAlpha') => {
-//     console.log("setup_Moonbeam is RUN");
-  
-//     let WS_URL;
-//     //mainnet
-//     if (wsURL === 'Moonriver') WS_URL = 'wss://wss.moonriver.moonbeam.network'; 
-//     else if (wsURL === 'Polkadot') WS_URL = 'wss://rpc.polkadot.io'; 
-//     else if (wsURL === 'Kusama') WS_URL = 'wss://kusama-rpc.polkadot.io'; 
-//     else if (wsURL === 'Moonriver') WS_URL = ''; 
-//     else if (wsURL === 'Karura') WS_URL = ''; 
-//     //testnets
-//     else if (wsURL === 'MoonbaseRelayTestnet') WS_URL = 'wss://frag-moonbase-relay-rpc-ws.g.moonbase.moonbeam.network'; 
-//     else if (wsURL === 'MoonbaseAlpha') WS_URL = 'wss://wss.api.moonbase.moonbeam.network'; 
-//     else if (wsURL === 'KaruraAlphanet') WS_URL = 'wss://crosschain-dev.polkawallet.io:9908'; 
-//     else if (wsURL === 'BifrostAlphanet') WS_URL = 'wss://moonriver.bifrost-rpc.testnet.liebi.com/ws'; 
-//     else if (wsURL === 'KintsugiAlphanet') WS_URL = 'wss://api-dev-moonbeam.interlay.io/parachain'; 
-     
-//     const wsProvider = new WsProvider(WS_URL);
-  
-//     // Wait for Provider
-//     const api = await ApiPromise.create({ provider: wsProvider });
-//     await api.isReady;
-//     console.log(`api => : `,api);
-//     return {api};
-// };
-//#endregion 
-
-
 //#region ***** Transfer Asset from Parachain to Parachain //*****   0x1270dbdE6Fa704f9363e47Dd05493D5dae329A4d is Pablo Moon Account
 const transfer_Asset_FromParachainToParachain = async (api, _token="KUSD", originParachain=2000, parachain=1000, EVMaccount="0x1270dbdE6Fa704f9363e47Dd05493D5dae329A4d", amount="1") => {
   // parachain : 1000 for Moonbasealpha and 2023 for Moonriver   
@@ -241,10 +207,6 @@ const transfer_Asset_FromParachainToParachain = async (api, _token="KUSD", origi
   let general_key;
   const token = _token.toLowerCase();
   if (token.toLowerCase()==="kusd" || token.toLowerCase()==="ausd") general_key="0x0081";  
-
-
-  // const ADDR1 = '5FP8MMBmPdBCMgG5AspTHVNWXXSEoR4vgJwSrehUj1qJAKxN';     //Alecia
-  // const ADDR2 = '5EbenGjMnTsyMuDVoSbMfXidaCTrtqfLya1Khnb8zXCkD6LJ';     //A1
   
   const now = await api.query.timestamp.now();   // Retrieve the last timestamp
   // const { nonce, data: balance } = await api.query.system.account(ADDR1);   // Retrieve the account balance & nonce via the system module
@@ -253,11 +215,6 @@ const transfer_Asset_FromParachainToParachain = async (api, _token="KUSD", origi
   const {free: free1 , reserved: reserved1, frozen: frozen1} = await api.query.tokens.accounts(polkadotInjectorAddress, {Token: token}); 
 
   console.log(`KUSD=> ${now}: balance free: ${free1} reserved: ${reserved1} frozen: ${frozen1}`);
-
-  // const keyring = new Keyring({ type: 'sr25519' });
-  // const PHRASE = 'casual subject usage friend elder novel brick prosper order protect senior hunt';    //Alecia
-  // const Alecia = keyring.addFromUri(PHRASE);
-
 
   const txAssetParachainToParachain = await api.tx.xTokens
   .transferMultiasset(
@@ -368,20 +325,12 @@ const transfer_Currency_FromParachainToParachain = async (api, parachain=1000, E
     console.log(`transfer_Currency_FromParachainToParachain polkadotInjector and/or polkadotInjectorAddress are null. Cannot proceed!!!`)
   }
 
-  // const ADDR1 = '5FP8MMBmPdBCMgG5AspTHVNWXXSEoR4vgJwSrehUj1qJAKxN';     //Alecia
-  // const ADDR2 = '5EbenGjMnTsyMuDVoSbMfXidaCTrtqfLya1Khnb8zXCkD6LJ';     //A1
-  
   const now = await api.query.timestamp.now();   // Retrieve the last timestamp
   // const { nonce, data: balance } = await api.query.system.account(ADDR1);   // Retrieve the account balance & nonce via the system module
 
   const { nonce, data: balance } = await api.query.system.account(polkadotInjectorAddress);   // Retrieve the account balance & nonce via the system module
 
   console.log(`${now}: balance of ${balance.free} and a nonce of ${nonce}`);
-
-  // const keyring = new Keyring({ type: 'sr25519' });
-  // const PHRASE = 'casual subject usage friend elder novel brick prosper order protect senior hunt';    //Alecia
-  // const Alecia = keyring.addFromUri(PHRASE);
-
 
   const txCurrencyParachainToParachain = await api.tx.xTokens
   .transfer(
@@ -466,9 +415,6 @@ const transferFromRelayToParachain = async (apiRelay, parachain=1000, EVMaccount
   if (!polkadotInjector || !polkadotInjectorAddress) {
     console.log(`transfer_Currency_FromParachainToParachain polkadotInjector and/or polkadotInjectorAddress are null. Cannot proceed!!!`)
   }
-
-  // const ADDR1 = '5FP8MMBmPdBCMgG5AspTHVNWXXSEoR4vgJwSrehUj1qJAKxN';     //Alecia
-  // const ADDR2 = '5EbenGjMnTsyMuDVoSbMfXidaCTrtqfLya1Khnb8zXCkD6LJ';     //A1
   
   const now = await apiRelay.query.timestamp.now();   // Retrieve the last timestamp
   // const { nonce, data: balance } = await apiRelay.query.system.account(ADDR1);   // Retrieve the account balance & nonce via the system module
@@ -476,11 +422,6 @@ const transferFromRelayToParachain = async (apiRelay, parachain=1000, EVMaccount
   const { nonce, data: balance } = await apiRelay.query.system.account(polkadotInjectorAddress);   // Retrieve the account balance & nonce via the system module
 
   console.log(`${now}: balance of ${balance.free} and a nonce of ${nonce}`);
-
-  // const keyring = new Keyring({ type: 'sr25519' });
-  // const PHRASE = 'casual subject usage friend elder novel brick prosper order protect senior hunt';    //Alecia
-  // const Alecia = keyring.addFromUri(PHRASE);
-
 
   const txRelaytoParachain = await apiRelay.tx.xcmPallet
   .limitedReserveTransferAssets(
@@ -557,13 +498,6 @@ const tranferFromRelayToRelay = async (apiRelay, recipient='5EbenGjMnTsyMuDVoSbM
         console.log(`transfer_Currency_FromParachainToParachain polkadotInjector and/or polkadotInjectorAddress are null. Cannot proceed!!!`)
       }
 
-      // const ADDR1 = '5FP8MMBmPdBCMgG5AspTHVNWXXSEoR4vgJwSrehUj1qJAKxN';     //Alecia
-      // const ADDR2 = '5EbenGjMnTsyMuDVoSbMfXidaCTrtqfLya1Khnb8zXCkD6LJ';     //A1
-  
-      // const keyring = new Keyring({ type: 'sr25519' });
-      // const PHRASE = 'casual subject usage friend elder novel brick prosper order protect senior hunt';    //Alecia
-      // const Alecia = keyring.addFromUri(PHRASE);
-      
       const amount = (new BN(_amount)).mul(mantissa12);
       const unsub_Tx = apiRelay.tx.balances
       .transfer(recipient, amount)
@@ -597,8 +531,8 @@ const setup_SubstrateChain = async (wsURL = 'MoonbaseAlpha') => {
   if (wsURL === 'Moonriver') WS_URL = 'wss://wss.moonriver.moonbeam.network'; 
   else if (wsURL === 'Polkadot') WS_URL = 'wss://rpc.polkadot.io'; 
   else if (wsURL === 'Kusama') WS_URL = 'wss://kusama-rpc.polkadot.io'; 
-  else if (wsURL === 'Moonriver') WS_URL = ''; 
-  else if (wsURL === 'Karura') WS_URL = ''; 
+  else if (wsURL === 'Karura') WS_URL = 'wss://karura.api.onfinality.io/public-ws'; 
+
   //testnets
   else if (wsURL === 'MoonbaseRelayTestnet') WS_URL = 'wss://frag-moonbase-relay-rpc-ws.g.moonbase.moonbeam.network'; 
   else if (wsURL === 'MoonbaseAlpha') WS_URL = 'wss://wss.api.moonbase.moonbeam.network'; 
@@ -616,41 +550,57 @@ const setup_SubstrateChain = async (wsURL = 'MoonbaseAlpha') => {
 };
 //#endregion 
 
+
+
+const getAvailableBalance = async (network, api, account, token) => {
+
+    if (network==="Moonriver")
+    {
+
+    }
+    else {
+
+    }
+
+
+
+}
+
 //For MoobaseAlpha use Pablo Monn Address 0x1270dbdE6Fa704f9363e47Dd05493D5dae329A4d
 //#region ***** Setup EVM Chain //*****
 const setup = async (network = "moonbaseAlpha", useMetaMask=true) => {
 
-      let provider, wallet, wss_provider=null, mm_acounts;
+      // let provider, wallet, wss_provider=null, mm_acounts;
       //#region SETUP PROVIDER AND WALLET WITH METAMASK 
-      if (useMetaMask)
-      {
-        const _provider = await detectEthereumProvider();
-        if (_provider) {
-          provider = new ethers.providers.Web3Provider(window.ethereum, "any");   
-          provider.on("network", (newNetwork, oldNetwork) => {
-              if (oldNetwork) {
-                  window.location.reload();
-              }
-          });
+      // if (useMetaMask)
+      // {
+      //   const _provider = await detectEthereumProvider();
+      //   if (_provider) {
+      //     provider = new ethers.providers.Web3Provider(window.ethereum, "any");   
+      //     provider.on("network", (newNetwork, oldNetwork) => {
+      //         if (oldNetwork) {
+      //             window.location.reload();
+      //         }
+      //     });
 
-          mm_acounts = await _provider.request({ method: 'eth_requestAccounts' });
-          console.log(`MetaMask Accounts: `,mm_acounts);
-          const account = mm_acounts[0];
-          const mm_chainId = await _provider.request({ method: 'eth_chainId' });
-          console.log(`MetaMask mm_chainId: `,mm_chainId);
+      //     mm_acounts = await _provider.request({ method: 'eth_requestAccounts' });
+      //     console.log(`MetaMask Accounts: `,mm_acounts);
+      //     const account = mm_acounts[0];
+      //     const mm_chainId = await _provider.request({ method: 'eth_chainId' });
+      //     console.log(`MetaMask mm_chainId: `,mm_chainId);
         
-          wallet = provider.getSigner(); 
+      //     wallet = provider.getSigner(); 
 
-          console.log("New MetaMask wallet signer : ",wallet);
-          setWallet(wallet);
+      //     console.log("New MetaMask wallet signer : ",wallet);
+      //     setWallet(wallet);
 
-          return { provider, wallet, account,  };
-        } 
-        else { 
-          console.log('Please install MetaMask!'); 
-          return { provider: null, wallet: null, account: null };
-        }
-      }
+      //     return { provider, wallet, account,  };
+      //   } 
+      //   else { 
+      //     console.log('Please install MetaMask!'); 
+      //     return { provider: null, wallet: null, account: null };
+      //   }
+      // }
       //#endregion SETUP PROVIDER AND WALLET WITH METAMASK  
 }
 //#endregion 
@@ -673,4 +623,5 @@ export {
           checkAllowanceOfTokentoAddress,
           approve,
           getAccountIdtoHex,
+          getAvailableBalance,
        };
