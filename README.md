@@ -126,7 +126,7 @@ Many more information is available such as Extrisnic Hash, XCM Message Hash, Tre
 
 
 ## SUBQUERY KUSAMA
-![plot](./Printscreens/SubQuery_Entity54_MOVR.png)
+![plot](./Printscreens/SubQuery_Entity54_Kusama.png)
 <br>
 <br>
 <br>
