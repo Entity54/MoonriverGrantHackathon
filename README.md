@@ -110,7 +110,7 @@ Many more information is available such as Extrisnic Hash, XCM Message Hash, Tre
 <br>
 
 ## SUBQUERY MOONRIVER
-![plot](./Printscreens/SubQuery_Entity54_Moonriver.png)
+![plot](./Printscreens/SubQuery_Entity54_MOVR.png)
 <br>
 <br>
 <br>
