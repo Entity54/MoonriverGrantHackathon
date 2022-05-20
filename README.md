@@ -106,13 +106,13 @@ Many more information is available such as Extrisnic Hash, XCM Message Hash, Tre
 ![plot](./Printscreens/SubQuery_Entity54_Karura.png)
 <br>
 <br>
-
-
 <br>
 <br>
 
 ## SUBQUERY MOONRIVER
 ![plot](./Printscreens/SubQuery_Entity54_Moonriver.png)
+<br>
+<br>
 <br>
 <br>
 filter=`(filter: {fromAccountId20Id: {equalTo:"${account}"}})`;
